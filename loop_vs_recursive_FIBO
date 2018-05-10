@@ -1,0 +1,46 @@
+import time
+import numpy as np
+import matplotlib.pyplot as plt
+  
+def fibo_loop_1(a,b,n):
+    if(n>0):
+        t=a
+        a=b
+        b=t+b
+        fibo_loop_1(b,a+b,n-1)
+    else:
+        return a
+    
+def fibo_rec(n):
+    if(n<2):
+        return n
+    else:
+        return fibo_rec(n-1)+fibo_rec(n-2)
+
+def cal_time(n,sure1,sure2):
+    time1 = int(round(time.time()))
+    fibo_rec(n)
+    time2 = int(round(time.time()))
+    fibo_loop(n)
+    time3 = int(round(time.time()))
+    sure1.append(time2-time1)
+    sure2.append(time3-time2)
+
+sureler1 = []
+sureler2 = []
+for i in range(40):
+    y1.append(cal_time(i))
+    y2.append(cal_time(i))
+print(sureler1)
+print(sureler2)
+x = []
+for k in range(40):
+    x.append(k)
+    
+plt.plot(x,sureler1,linewidth=4)
+plt.plot(x,sureler2,linewidth=4)
+
+plt.title('loop_vs_recursive')
+plt.ylabel('adım sayısı')
+plt.xlabel('zaman')
+plt.show()
