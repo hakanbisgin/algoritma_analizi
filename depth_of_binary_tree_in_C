@@ -1,0 +1,117 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define SENTINEL -100000000
+
+struct dugum {
+    int icerik;
+    struct dugum *sol;
+    struct dugum *sag;
+};
+
+struct ikili_arama_agaci{
+    struct dugum *kok;
+};
+
+void ikili_arama_agaci_olustur(struct ikili_arama_agaci **agac){
+    *agac=(struct ikili_arama_agaci*)malloc(sizeof(struct ikili_arama_agaci));
+    if(*agac==NULL){
+        printf("Alan ayrilamadi... exit ...\n");
+        exit(1);
+    }
+    (*agac)->kok=NULL;
+}
+
+struct dugum* dugum_olustur(int icerik){
+    struct dugum *d = (struct dugum*)malloc(sizeof(struct dugum));
+    if(d==NULL){
+        printf("Alan ayrilamadi... exit ...\n");
+        exit(1);
+    }
+    d->icerik = icerik; (*d).icerik=icerik;
+    d->sol=NULL;
+    d->sag=NULL;
+    return d;
+}
+
+
+void ekle(struct ikili_arama_agaci *agac,int icerik){
+    struct dugum *dugum;
+    struct dugum *d;
+    struct dugum *geri;
+
+    d=agac->kok;
+    while(d!=NULL){
+        geri=d;
+        if(icerik < d->icerik) d=d->sol;
+        else if(icerik > d->icerik) d= d->sag;
+        else return;
+    }
+    dugum=dugum_olustur(icerik);
+    if(agac->kok==NULL){
+        agac->kok = dugum;
+        return;
+    }
+    if(icerik < geri->icerik) geri->sol = dugum;
+    else geri->sag = dugum;
+
+}
+
+void preorder(struct dugum *kok){
+
+    if(kok==NULL) return;
+    printf("%4d ",kok->icerik);
+    preorder(kok->sol);
+    preorder(kok->sag);
+
+}
+
+
+int toplam_derinlik(struct dugum *a){
+    int sol=0;
+    int sag=0;
+
+    if(a == NULL) return 0;
+    if(a->sol == NULL && a->sag == NULL) return 1;
+    sol += toplam_derinlik(a->sol);
+    sag += toplam_derinlik(a->sag);
+    if(sol>sag) return sol;
+    return sag;
+    
+}
+
+
+
+
+int rastgele_eleman(int kac_arasinda){
+    int sayi;
+
+    sayi=rand()%kac_arasinda;
+    return sayi;
+}
+
+
+int main(int argc, char** argv) {
+   // int i;
+    struct ikili_arama_agaci *agac;
+    int sayi,i,a, kac_dugumlu;
+    ikili_arama_agaci_olustur(&agac);
+
+    printf("lütfen istediğiniz düğüm sayıyı giriniz: ");
+    scanf("%d",&kac_dugumlu);
+
+    srand(time(NULL));
+
+    for(i=0;i<kac_dugumlu;i++){
+        sayi=rastgele_eleman(100);
+        ekle(agac,sayi);
+    }
+
+    preorder(agac->kok);
+
+    a=toplam_derinlik(agac->kok);
+    printf("\n\n%d",a);
+
+    return 0;
+}
