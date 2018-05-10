@@ -1,0 +1,42 @@
+import random
+
+def createRandom(n):
+    myarray=[]
+    for i in range(n):
+        myarray.append(random.randint(0,100))
+    return myarray
+def myBubble_Sort(my_array):
+    comparision=0
+    for passnum in range(len(my_array)-1,0,-1):
+        for i in range(passnum):
+            comparision=number_of_comparision+1
+            if my_array[i]>my_array[i+1]:
+                temp = my_array[i]
+                my_array[i] = my_array[i+1]
+                my_array[i+1] = temp
+    
+    return(comparision)
+
+    
+def insertionsort( aList ):
+    comparison=0
+    for i in range( 1, len( aList ) ):
+        tmp = aList[i]
+        k = i
+        comparison=comparison+1
+        while k > 0 and tmp < aList[k - 1]:
+            aList[k] = aList[k - 1]
+            k -= 1
+            comparison=comparison+1
+        aList[k] = tmp
+    return(comparison)
+
+def cal_comparision(n):
+    print('eleman sayisi: ', n, 'sonuclar su sekildedir: ')
+    print('Bubble sort = ',myBubble_Sort(createRandom(n)))
+    print('Bubble sort = ',insertionsort(createRandom(n)))
+
+
+
+for i in (10,20,30,50):
+    cal_comparision(i)
