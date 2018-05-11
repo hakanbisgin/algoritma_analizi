@@ -1,0 +1,53 @@
+import math
+from random import randint
+
+
+def ortalama(gelen_sayilar):
+    miktar = len(gelen_sayilar)
+    toplam = 0
+    for i in gelen_sayilar:
+        toplam += i
+    return toplam/miktar
+
+def sapma(a):
+    ort = ortalama(a)
+    a.sort
+    sapma = 0
+    n = len(a)
+    for i in range(n)
+        sapma += ((ort-a)**2)
+    sapma /= (n-1)
+    sapma = math.sqrt(sapma)
+    return sapma
+    
+
+def varyans(sapma):
+    return sapma**2
+
+def maxBul(dizi):
+    n = len(dizi)
+    dizi.sort
+    return dizi[n-1]
+    
+def minBul(dizi):
+    dizi.sort
+    return dizi[0]
+
+def dizi_olustur(n):
+    a = []
+    for i in range(n):
+        a.append(randint(0, 100))
+    return a
+
+n = 10
+dizi = dizi_olustur(n)
+sap = sapma( *data )
+vary = varyans(sap)
+max = maxBul(dizi)
+min = minBul(dizi)
+ort = ortalama(dizi)
+print("Sapma : ", sap)
+print("Varyans : ", vary)
+print("Max : ", max)
+print("Min : ", min)
+print("Ortalama : ", ort)
